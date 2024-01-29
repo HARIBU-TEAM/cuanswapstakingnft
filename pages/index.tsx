@@ -11,13 +11,28 @@ const Home: NextPage = () => {
 
   const { contract: Cuanswapcontract } = useContract (cuanswapstakingnft, "nft-drop");
   const { contract: stakingContract } = useContract (stakingaddress, "staking");
+
+const { data: myCuanswapNFT} = useOwnedNFTs(cuanswapstakingnft, address);
+
   return (
     <main className={styles.main}>
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>CUANSWAP STAKING NFT</h1>
       </div>
-      <Web3Button contractAddress={cuanswapstakingnft} action={(cuanswapcontract) => cuanswapcontract.erc721.claim(1)}>Claim Cuan NFT</Web3Button>
+      <Web3Button contractAddress={cuanswapstakingnft} action={(cuanswapcontract) => cuanswapcontract.erc721.claim(1)}>Claim CuanSwap</Web3Button>
+      <br />
+      <h1>My Cuanswap</h1>
+      <div>
+        {myCuanswapNFT?.map((nft) =>(
+          <div>
+            <h3>{nft.metadata.name}</h3>
+            <ThirdwebNftMedia
+            metadata={nft.metadata}
+            />
+
+      </div>
+        ))}
     </div>
   </main>
   );
