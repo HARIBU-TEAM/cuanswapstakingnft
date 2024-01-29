@@ -12,6 +12,7 @@ const Home: NextPage = () => {
   const { contract: Cuanswapcontract } = useContract(cuanswapstakingnft, "nft-drop");
   const { contract: stakingContract } = useContract(stakingaddress, "staking");
   const { data: myCuanswapNFT } = useOwnedNFTs(cuanswapstakingnft, address);
+  const { data: stakedCuanswapNFTs } = useContractRead(stakingContract, "getStakeInfo", address);
 
   async function stakeNFT(nftId: string) {
     if (!address) return;
@@ -24,6 +25,8 @@ const Home: NextPage = () => {
 
     await stakingContract?.call("stake", [nftId]);
   }
+
+
 
   return (
     <main className={styles.main}>
@@ -53,6 +56,7 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
+        <h1>Staked Cuan:</h1>
       </div>
     </main>
   );
