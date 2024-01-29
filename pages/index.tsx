@@ -20,7 +20,7 @@ const { data: myCuanswapNFT} = useOwnedNFTs(cuanswapstakingnft, address);
       <div className={styles.header}>
         <h1>CUANSWAP STAKING NFT</h1>
       </div>
-      <Web3Button contractAddress={cuanswapstakingnft} action={(cuanswapcontract) => cuanswapcontract.erc721.claim(1)}>Claim CuanSwap</Web3Button>
+      <Web3Button contractAddress={cuanswapstakingnft} action={(cuanswapcontract) => cuanswapcontract.erc721.claim(1)}>Claim Cuanswap</Web3Button>
       <br />
       <h1>My Cuanswap</h1>
       <div>
