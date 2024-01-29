@@ -14,6 +14,21 @@ const Home: NextPage = () => {
 
 const { data: myCuanswapNFT} = useOwnedNFTs(cuanswapstakingnft, address);
 
+async function stakeNFT(nftId: string) {
+  if (!address) return;
+
+const is Approve = await Cuanswapcontract?.isApproved(
+  address,
+  stakingaddress
+);
+
+if(!isApproved) {
+  await Cuanswapcontract?.setApprovalForAll(stakingaddress, true);
+}
+
+await stakingContract?.call("stake", [nftId])
+}
+
   return (
     <main className={styles.main}>
     <div className={styles.container}>
@@ -31,6 +46,10 @@ const { data: myCuanswapNFT} = useOwnedNFTs(cuanswapstakingnft, address);
             metadata={nft.metadata}
             />
 
+<Web3Button
+contractAddress={stakingaddress}
+action={() => stakeNFT(nft.metadata.id)}
+>Stake CuanSwap NFT</Web3Button>
       </div>
         ))}
     </div>
