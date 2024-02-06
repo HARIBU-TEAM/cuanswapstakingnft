@@ -1,64 +1,44 @@
-import { useAddress, useContract, Web3Button, useOwnedNFTs } from "@thirdweb-dev/react";
-import ThirdwebNftMedia from "../components/ThirdwebNftMedia"; // Pastikan Anda mengganti path sesuai dengan struktur proyek Anda.
-import styles from "../styles/Home.module.css";
+import type { NextPage } from "next";
 import Image from "next/image";
-import { NextPage } from "next";
+import { useRouter } from "next/router";
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  const address = useAddress();
-  const cuanswapstakingnft = "0x31A6655746D4C6cbF1f92443e3139323d2f28d54";
-  const stakingaddress = "0xB333A7825885c5722B6BAC29c5991B1dD272865b";
-
-  const { contract: Cuanswapcontract } = useContract(cuanswapstakingnft, "nft-drop");
-  const { contract: stakingContract } = useContract(stakingaddress, "staking");
-  const { data: myCuanswapNFT } = useOwnedNFTs(cuanswapstakingnft, address);
-  const { data: stakedCuanswapNFTs } = useContractRead(stakingContract, "getStakeInfo", address);
-
-  async function stakeNFT(nftId: string) {
-    if (!address) return;
-
-    const isApprove = await Cuanswapcontract?.isApproved(address, stakingaddress);
-
-    if (!isApprove) {
-      await Cuanswapcontract?.setApprovalForAll(stakingaddress, true);
-    }
-
-    await stakingContract?.call("stake", [nftId]);
-  }
-
-
+  const router = useRouter();
 
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1>CUANSWAP STAKING NFT</h1>
-        </div>
-        <Web3Button
-          contractAddress={cuanswapstakingnft}
-          action={(cuanswapcontract) => cuanswapcontract.erc721.claim(1)}
+    <div className={styles.container}>
+      {/* Top Section */}
+      <h1 className={styles.h1}>thirdweb Deploy - Custom Staking Contract</h1>
+      <div className={styles.nftBoxGrid}>
+        <div
+          className={styles.optionSelectBox}
+          role="button"
+          onClick={() => router.push("/mint")}
         >
-          Claim Cuanswap
-        </Web3Button>
-        <br />
-        <h1>My Cuanswap</h1>
-        <div>
-          {myCuanswapNFT?.map((nft) => (
-            <div key={nft.metadata.id}>
-              <h3>{nft.metadata.name}</h3>
-              <ThirdwebNftMedia metadata={nft.metadata} />
-              <Web3Button
-                contractAddress={stakingaddress}
-                action={() => stakeNFT(nft.metadata.id)}
-              >
-                Stake CuanSwap NFT
-              </Web3Button>
-            </div>
-          ))}
+          {/* Mint a new NFT */}
+          <Image src="/icons/drop.webp" alt="drop" width={64} height={64} />
+          <h2 className={styles.selectBoxTitle}>Mint a new NFT</h2>
+          <p className={styles.selectBoxDescription}>
+            Use the Edition Drop Contract to claim an NFT from the collection.
+          </p>
         </div>
-        <h1>Staked Cuan:</h1>
+
+        <div
+          className={styles.optionSelectBox}
+          role="button"
+          onClick={() => router.push("/stake")}
+        >
+          {/* Staking an NFT */}
+          <Image src="/icons/token.webp" alt="token" width={64} height={64} />
+          <h2 className={styles.selectBoxTitle}>Stake Your NFTs</h2>
+          <p className={styles.selectBoxDescription}>
+            Use the custom staking contract deployed via <b>thirdweb Deploy</b>{" "}
+            to stake your NFTs, and earn tokens from the <b>Token</b> contract.
+          </p>
+        </div>
       </div>
-    </main>
+    </div>
   );
 };
 

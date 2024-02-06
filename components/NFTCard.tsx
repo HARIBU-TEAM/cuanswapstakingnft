@@ -1,41 +1,47 @@
-import { FC } from 'react';
-import { ThirdwebNFTMedia, usecontract, useNFT, web3button } from '@thirdweb-dev/react';
+import {
+  ThirdwebNftMedia,
+  useContract,
+  useNFT,
+  Web3Button,
+} from "@thirdweb-dev/react";
+import type { FC } from "react";
+import {
+  editionDropContractAddress,
+  stakingContractAddress,
+} from "../consts/contractAddresses";
+import styles from "../styles/Home.module.css";
 
 interface NFTCardProps {
-    tokenId: number;
+  tokenId: number;
 }
 
-const NFTCard; FC<NFTCardProps> = ({ tokenId }) =>{
-    const cuanswapstakingnft = "0x31A6655746D4C6cbF1f92443e3139323d2f28d54";
-    const stakingaddress = "xB333A7825885c5722B6BAC29c5991B1dD272865b";
+const NFTCard: FC<NFTCardProps> = ({ tokenId }) => {
+  const { contract } = useContract(editionDropContractAddress, "edition-drop");
+  const { data: nft } = useNFT(contract, tokenId);
 
-    const { contract: Cuanswapcontract } = useContract(cuanswapstakingnft, "nft-drop");
-    const { contract: stakingContract } = useContract(stakingaddress, "staking");
-    const { data: nft } = useNFT(Cuanswapcontract, tokenId);
+  return (
+    <>
+      {nft && (
+        <div className={styles.nftBox}>
+          {nft.metadata && (
+            <ThirdwebNftMedia
+              metadata={nft.metadata}
+              className={styles.nftMedia}
+            />
+          )}
+          <h3>{nft.metadata.name}</h3>
+          <Web3Button
+            action={(contract) =>
+              contract?.call("withdraw", [nft.metadata.id, 1])
+            }
+            contractAddress={stakingContractAddress}
+          >
+            Withdraw
+          </Web3Button>
+        </div>
+      )}
+    </>
+  );
+};
 
-    async function withdraw(nftId: string){
-        await stakingContract?.call("withdraw", [nftId]);
-    }
-        
-    return (
-        <>
-        {nft && (
-            <div>
-                <h3>{nft.metadata.name}</h3>
-                {nft.metadata && (
-                    <ThirdwebNFTMedia
-                    metadata={nft.metadata}
-                    />
-
-
-                )}
-                <web3button
-                contractAddress={stakingaddress}
-                action={() => withdraw(nft.metadata.id)}
-                >withdraw</web3button>
-            </div>
- )}
-        </>
-    )
-}
 export default NFTCard;
