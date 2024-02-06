@@ -12,7 +12,7 @@ import {
 import styles from "../styles/Home.module.css";
 
 interface NFTCardProps {
-  tokenId: number;
+  tokenId: 0;
 }
 
 const NFTCard: FC<NFTCardProps> = ({ tokenId }) => {
