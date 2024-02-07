@@ -82,10 +82,14 @@
   margin: auto;
   width: 90% !important;
   border-radius: 15x;
-  -webkit-border-radius: 150x;
-  -moz-border-radius: 150x;
-  -ms-border-radius: 150x;
-  -o-border-radius: 150x;
+  -webkit-border-radius: 15x;
+  -moz-border-radius: 15x;
+  -ms-border-radius: 15x;
+  -o-border-radius: 15x;
+}
+
+.btnBack {
+  padding: 20px !important;
 }
 
 /* Between 1200 and 800 */
