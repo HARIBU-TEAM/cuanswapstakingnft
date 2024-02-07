@@ -16,7 +16,7 @@ const buttonStyles: React.CSSProperties = {
   display: "inline-block",
   textAlign: "center",
   textDecoration: "none",
-  marginBottom: "12rem",
+  marginBottom: "3rem",
 };
 
 // Deklarasi gaya untuk iframe
