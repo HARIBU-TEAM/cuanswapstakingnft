@@ -32,7 +32,7 @@
 }
 
 .nftBoxGrid {
-  width: 1200px;
+  width: 100%;
   max-width: 95vw;
   display: flex;
   flex-direction: row;
@@ -75,6 +75,17 @@
 .selectBoxDescription {
   color: rgba(255, 255, 255, 0.9);
   margin-top: 0px;
+}
+
+.nftMedia {
+  position: absolute;
+  margin: auto;
+  width: 90% !important;
+  border-radius: 15x;
+  -webkit-border-radius: 150x;
+  -moz-border-radius: 150x;
+  -ms-border-radius: 150x;
+  -o-border-radius: 150x;
 }
 
 /* Between 1200 and 800 */
