@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         height={64}
       />
       <h1 className="text-3xl font-extrabold text-purple-500">
-        Welcome toCuanswap NFT
+        Welcome to Cuanswap NFT
       </h1>
       <h5>Stake your NFT</h5>
       <div className={styles.nftBoxGrid}>

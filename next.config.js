@@ -1,6 +1,6 @@
-module.exports = {
-  webpack(config) {
-    config.infrastructureLogging = { debug: /PackFileCache/ };
-    return config;
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
 };
+
+module.exports = nextConfig;
