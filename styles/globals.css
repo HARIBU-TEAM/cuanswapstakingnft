@@ -41,6 +41,7 @@ body {
     rgba(112, 26, 117, 1) 0%,
     rgba(16, 23, 42, 1) 100%
   );
+  background-size: cover;
   background-repeat: no-repeat;
   font-family: "Inter", sans-serif;
   color: var(--white);
