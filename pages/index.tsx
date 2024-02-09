@@ -9,7 +9,17 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       {/* Top Section */}
-      <h1 className={styles.h1}>Cuanswap NFT - Stake your Cuanswap NFT</h1>
+      <Image
+        src="/images/logo-cuan.png"
+        className="mb-4"
+        alt="drop"
+        width={100}
+        height={64}
+      />
+      <h1 className="text-3xl font-extrabold text-purple-500">
+        Welcome toCuanswap NFT
+      </h1>
+      <h5>Stake your NFT</h5>
       <div className={styles.nftBoxGrid}>
         <div
           className={styles.optionSelectBox}
