@@ -23,8 +23,6 @@ const Home: NextPage = () => {
             Use the Edition Drop Contract to claim an NFT from the collection.
           </p>
         </div>
-
-        
       </div>
     </div>
   );
