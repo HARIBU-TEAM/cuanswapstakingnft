@@ -6,8 +6,8 @@ import {
 } from "@thirdweb-dev/react";
 import type { FC } from "react";
 import {
-  editionDropContractAddress,
-  stakingContractAddress,
+  editionDropContractAddressOne,
+  stakingContractAddressOne,
 } from "../consts/contractAddresses";
 import styles from "../styles/Home.module.css";
 
@@ -16,7 +16,7 @@ interface NFTCardProps {
 }
 
 const NFTCard: FC<NFTCardProps> = ({ tokenId }) => {
-  const { contract } = useContract(editionDropContractAddress, "edition-drop");
+  const { contract } = useContract(editionDropContractAddressOne, "edition-drop");
   const { data: nft } = useNFT(contract, tokenId);
 
   return (
@@ -34,7 +34,7 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId }) => {
             action={(contract) =>
               contract?.call("withdraw", [nft.metadata.id, 1])
             }
-            contractAddress={stakingContractAddress}
+            contractAddress={stakingContractAddressOne}
           >
             Withdraw
           </Web3Button>

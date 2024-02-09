@@ -12,10 +12,10 @@ import {
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import NFTCard from "../components/NFTCard";
+import NFTCard from "../components/NFTCardOne";
 import {
-  editionDropContractAddress,
-  stakingContractAddress,
+  editionDropContractAddressOne,
+  stakingContractAddressOne,
   tokenContractAddress,
 } from "../consts/contractAddresses";
 import styles from "../styles/Home.module.css";
@@ -23,14 +23,14 @@ import styles from "../styles/Home.module.css";
 const Stake: NextPage = () => {
   const address = useAddress();
   const { contract: nftDropContract } = useContract(
-    editionDropContractAddress,
+    editionDropContractAddressOne,
     "edition-drop"
   );
   const { contract: tokenContract } = useContract(
     tokenContractAddress,
     "token"
   );
-  const { contract, isLoading } = useContract(stakingContractAddress);
+  const { contract, isLoading } = useContract(stakingContractAddressOne);
   const { data: ownedNfts } = useOwnedNFTs(nftDropContract, address);
   const { data: tokenBalance } = useTokenBalance(tokenContract, address);
   const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
@@ -57,10 +57,10 @@ const Stake: NextPage = () => {
 
     const isApproved = await nftDropContract?.isApproved(
       address,
-      stakingContractAddress
+      stakingContractAddressOne
     );
     if (!isApproved) {
-      await nftDropContract?.setApprovalForAll(stakingContractAddress, true);
+      await nftDropContract?.setApprovalForAll(stakingContractAddressOne, true);
     }
     await contract?.call("stake", [id, 1]);
   }
@@ -101,7 +101,7 @@ const Stake: NextPage = () => {
 
           <Web3Button
             action={(contract) => contract.call("claimRewards", [0])}
-            contractAddress={stakingContractAddress}
+            contractAddress={stakingContractAddressOne}
           >
             Claim Rewards
           </Web3Button>
@@ -129,7 +129,7 @@ const Stake: NextPage = () => {
                 />
                 <h3>{nft.metadata.name}</h3>
                 <Web3Button
-                  contractAddress={stakingContractAddress}
+                  contractAddress={stakingContractAddressOne}
                   action={() => stakeNft(nft.metadata.id)}
                 >
                   Stake
